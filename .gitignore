@@ -60,6 +60,9 @@ fabric.properties
 # .idea/misc.xml
 # *.ipr
 
+node_modules/
+dist/
+
 # Sonarlint plugin
 .idea/sonarlint
 

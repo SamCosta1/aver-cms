@@ -1,0 +1,12 @@
+.aver-form-control {
+   font-size: $font-small;
+   padding: 5px;
+
+   input {
+      border-radius: $default-border-radius;
+      text-decoration: none;
+      border-style: none;
+      border-bottom: #828282 1px solid;
+      padding: 5px;
+   }
+}
