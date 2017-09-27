@@ -1,6 +1,6 @@
 class AverFirebase {
 
-   constructor(firbaseConfig) {
+   constructor(firebaseConfig) {
       this.auth = new Auth(firebaseConfig);
    }
 
@@ -27,6 +27,6 @@ class AverFirebase {
    }
 
    signIn(email, password) {
-      this.auth.signInWithUserNameAndPassword(email, password);
+      return this.auth.signInWithUserNameAndPassword(email, password);
    }
 }

@@ -2,8 +2,17 @@
 
 // Font sizes
 $font-small: 15px;
-$default-border-radius: 2px;
+$font-large: 30px;
 
+// Colours
+$theme-col: rgb(0, 43, 99);;
+$error: red;
+
+$default-border-radius: 5px;
 * {
    font-family: 'Nunito', sans-serif;
+}
+
+.aver-error {
+   color: $error;
 }

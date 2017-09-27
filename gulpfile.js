@@ -13,6 +13,9 @@ const SRC = 'src',
    CORE_SRC = `${SRC}/aver-core`,
    CORE_DEST = `${DIST}/aver-core`,
 
+   LOGIN_SRC = `${SRC}/aver-login`,
+   LOGIN_DEST = CORE_DEST,
+
    SASS_SRC = `${CORE_SRC}/scss`,
    SASS_DEST = `${CORE_DEST}/css`,
 
@@ -47,6 +50,14 @@ gulp.task('js-core', () => {
       .pipe(gulp.dest(JS_CORE_DEST));
 });
 
+gulp.task('js-login', () => {
+   gulp.src(`${LOGIN_SRC}/**/*.js`)
+      .pipe(babel({
+         presets: ['es2015']
+      })).pipe(concat('admin-page.js'))
+      .pipe(gulp.dest(JS_CORE_DEST));
+});
+
 gulp.task('js-firebase', () => {
    gulp.src(`${JS_FIREBASE_SRC}/**/*.js`)
       .pipe(babel({
@@ -57,7 +68,7 @@ gulp.task('js-firebase', () => {
 
 gulp.task('copy-assets', () => {
    fs.copySync(ASSETS_SRC, ASSETS_DEST);
-   fs.copySync(`${CORE_SRC}/html/login/admin.html`, `${CORE_DEST}/admin.html`);
+   fs.copySync(`${LOGIN_SRC}/admin.html`, `${CORE_DEST}/admin.html`);
 });
 
 
@@ -65,6 +76,7 @@ gulp.task('default', () => {
    gulp.start('styles');
    gulp.start('js-core');
    gulp.start('js-firebase');
+   gulp.start('js-login');
    gulp.start('copy-assets');
 });
 
@@ -81,9 +93,10 @@ gulp.task('dev', ['default'], () => {
       }
    });
    gulp.watch(`${SASS_SRC}/**/*.scss`, ['styles']);
-   gulp.watch(`${CORE_SRC}/html/**/*.html`, ['copy-assets']);
+   gulp.watch(`${SRC}/**/*.html`, ['copy-assets']);
 //gulp.watch(`${TEMPLATES_SRC}/**/*.html`, ['create-admin-pages']);
    gulp.watch(`${JS_CORE_SRC}/**/*.js`, ['js-core']);
+   gulp.watch(`${LOGIN_SRC}/**/*.js`, ['js-login']);
    gulp.watch(`${JS_FIREBASE_SRC}/**/*.js`, ['js-firebase']);
    gulp.watch(`${DIST}/**/*`, browserSync.reload)
 });

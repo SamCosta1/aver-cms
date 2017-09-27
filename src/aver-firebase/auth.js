@@ -1,10 +1,12 @@
 class Auth {
 
-   constructor(firbaseConfig) {
-      if (firbaseConfig === null || firbaseConfig === undefined) throw "You must supply a firebase config!";
-      if (firebase === null || firebase === undefined) throw "Please include firebase in your project";
+   constructor(firebaseConfig) {
+      if (typeof firebaseConfig === 'undefined') throw "You must supply a firebase config!";
+      if (typeof firebase === 'undefined') throw "Please include firebase in your project";
 
-      firebase.initializeApp(firbaseConfig);
+      if (!firebase.apps.length) {
+         firebase.initializeApp(firebaseConfig);
+      }
    }
 
    isLoggedIn() {
@@ -14,7 +16,8 @@ class Auth {
 
    signInWithUserNameAndPassword(email, password) {
       this.email = email;
-      return firebase.auth().signInWithUserNameAndPassword(email, password);
+      console.log(firebase.auth(), email, password);
+      return firebase.auth().signInWithEmailAndPassword(email, password);
    }
 
    getUserEmail() {
