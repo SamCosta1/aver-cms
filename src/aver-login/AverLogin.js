@@ -1,7 +1,8 @@
 class AverLogin {
 
-   constructor(authModule){
+   constructor(authModule, onLoggedInLink = '/admin'){
       this.authModule = authModule;
+      this.onLoggedInLink = onLoggedInLink;
    }
 
    init() {
@@ -49,9 +50,9 @@ class AverLogin {
       }
 
       this.$loader.show();
-      authModule.signIn(email, password).then(() => {
+      this.authModule.signIn(email, password).then(() => {
          this.$loader.hide();
-         window.location.href = '/admin';
+         window.location.href = this.onLoggedInLink;
       }).catch(err => {
          this.$loader.hide();
          this.passwordErr(err.message);
@@ -64,7 +65,7 @@ class AverLogin {
       this.$passwordErr.text('');
    }
 
-   stringIsEmpty(str) { return typeof str === 'undefined' || str === null || str.length === 0; }
+   static stringIsEmpty(str) { return typeof str === 'undefined' || str === null || str.length === 0; }
    emailErr() { this.$emailErr.text('Email invalid'); }
    passwordErr(msg = 'Password invalid') { this.$passwordErr.text(msg); }
 }

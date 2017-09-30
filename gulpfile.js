@@ -4,6 +4,7 @@ const gulp = require('gulp'),
    concat = require('gulp-concat'),
    cleanCSS = require('gulp-clean-css'),
    fs = require('fs-extra'),
+   map = require('map-stream'),
    autoprefixer = require('gulp-autoprefixer'),
    babel = require('gulp-babel');
 
@@ -24,6 +25,8 @@ const SRC = 'src',
    JS_CORE_SRC = `${CORE_SRC}/js`,
    JS_CORE_DEST = `${CORE_DEST}/js`,
 
+   HTML_CORE_SRC = `${CORE_SRC}/html`,
+
    JS_FIREBASE_SRC = `${SRC}/aver-firebase/`,
    JS_FIREBASE_DEST = 'dist/aver-firebase/';
 
@@ -41,12 +44,24 @@ gulp.task('styles', () => {
 });
 
 
-gulp.task('js-core', () => {
+gulp.task('js-core', ['html'], () => {
    gulp.src(`${JS_CORE_SRC}/**/*.js`)
       .pipe(babel({
          presets: ['es2015']
       })).pipe(concat('aver-core.js'))
       .pipe(gulp.dest(JS_CORE_DEST));
+});
+
+
+gulp.task('html', () => {
+   gulp.src(`${HTML_CORE_SRC}/**/*.html`)
+      .pipe(concat('markup.js'))
+      .pipe(map((file, cb) => {
+         const wrapped = `const markup = \`${file.contents.toString()}\`;`;
+         file.contents = new Buffer(wrapped);
+         cb(null, file);
+      }))
+      .pipe(gulp.dest(JS_CORE_SRC));
 });
 
 gulp.task('js-login', () => {
@@ -87,8 +102,7 @@ gulp.task('deploy', () => {
 
 gulp.task('dev', ['default'], () => {
    gulp.watch(`${SASS_SRC}/**/*.scss`, ['styles']);
-   gulp.watch(`${SRC}/**/*.html`, ['copy-assets']);
-//gulp.watch(`${TEMPLATES_SRC}/**/*.html`, ['create-admin-pages']);
+   gulp.watch(`${SRC}/**/*.html`, ['copy-assets', 'js-core']);
    gulp.watch(`${JS_CORE_SRC}/**/*.js`, ['js-core']);
    gulp.watch(`${LOGIN_SRC}/**/*.js`, ['js-login']);
    gulp.watch(`${JS_FIREBASE_SRC}/**/*.js`, ['js-firebase']);
