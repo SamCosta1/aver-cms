@@ -24,6 +24,8 @@ const SRC = 'src',
    JS_CORE_SRC = `${CORE_SRC}/js`,
    JS_CORE_DEST = `${CORE_DEST}/js`,
 
+   HTML_CORE_SRC = `${CORE_SRC}/html`,
+
    JS_FIREBASE_SRC = `${SRC}/aver-firebase/`,
    JS_FIREBASE_DEST = 'dist/aver-firebase/';
 
@@ -41,12 +43,27 @@ gulp.task('styles', () => {
 });
 
 
-gulp.task('js-core', () => {
+gulp.task('js-core', ['html'], () => {
    gulp.src(`${JS_CORE_SRC}/**/*.js`)
       .pipe(babel({
          presets: ['es2015']
       })).pipe(concat('aver-core.js'))
-      .pipe(gulp.dest(JS_CORE_DEST));
+      .pipe(gulp.dest(JS_CORE_DEST))
+      .on('finish', () => {
+         fs.unlinkSync('./html');
+         fs.unlinkSync(`${JS_CORE_SRC}/markup.js`);
+      });
+});
+
+gulp.task('html', ['html-concat'], () => {
+   const html = fs.readFileSync('./html', 'utf-8');
+   fs.writeFileSync(`${JS_CORE_SRC}/markup.js`, `const markup = \`${html}\`;`);
+});
+
+gulp.task('html-concat', () => {
+   gulp.src(`${HTML_CORE_SRC}/**/*.html`)
+      .pipe(concat('html'))
+      .pipe(gulp.dest('.'));
 });
 
 gulp.task('js-login', () => {
