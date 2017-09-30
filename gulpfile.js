@@ -48,15 +48,11 @@ gulp.task('js-core', ['html'], () => {
       .pipe(babel({
          presets: ['es2015']
       })).pipe(concat('aver-core.js'))
-      .pipe(gulp.dest(JS_CORE_DEST))
-      .on('finish', () => {
-         fs.unlinkSync('./html');
-         fs.unlinkSync(`${JS_CORE_SRC}/markup.js`);
-      });
+      .pipe(gulp.dest(JS_CORE_DEST));
 });
 
 gulp.task('html', ['html-concat'], () => {
-   const html = fs.readFileSync('./html', 'utf-8');
+   const html = fs.readFileSync('html', 'utf-8');
    fs.writeFileSync(`${JS_CORE_SRC}/markup.js`, `const markup = \`${html}\`;`);
 });
 
