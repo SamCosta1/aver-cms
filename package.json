@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "gulp"
+    "postinstall": "gulp",
+    "dev": "gulp dev",
+    "build": "gulp deploy"
   },
   "repository": {
     "type": "git",
