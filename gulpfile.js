@@ -103,7 +103,6 @@ gulp.task('deploy', () => {
 gulp.task('dev', ['default'], () => {
    gulp.watch(`${SASS_SRC}/**/*.scss`, ['styles']);
    gulp.watch(`${SRC}/**/*.html`, ['copy-assets', 'js-core']);
-//gulp.watch(`${TEMPLATES_SRC}/**/*.html`, ['create-admin-pages']);
    gulp.watch(`${JS_CORE_SRC}/**/*.js`, ['js-core']);
    gulp.watch(`${LOGIN_SRC}/**/*.js`, ['js-login']);
    gulp.watch(`${JS_FIREBASE_SRC}/**/*.js`, ['js-firebase']);
