@@ -1,6 +1,6 @@
 class UIManager {
    constructor() {
-      initViews();
+      this.initViews();
    }
 
    initViews() {

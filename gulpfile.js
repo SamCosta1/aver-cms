@@ -4,6 +4,7 @@ const gulp = require('gulp'),
    concat = require('gulp-concat'),
    cleanCSS = require('gulp-clean-css'),
    fs = require('fs-extra'),
+   map = require('map-stream'),
    autoprefixer = require('gulp-autoprefixer'),
    babel = require('gulp-babel');
 
@@ -51,15 +52,16 @@ gulp.task('js-core', ['html'], () => {
       .pipe(gulp.dest(JS_CORE_DEST));
 });
 
-gulp.task('html', ['html-concat'], () => {
-   const html = fs.readFileSync('html', 'utf-8');
-   fs.writeFileSync(`${JS_CORE_SRC}/markup.js`, `const markup = \`${html}\`;`);
-});
 
-gulp.task('html-concat', () => {
+gulp.task('html', () => {
    gulp.src(`${HTML_CORE_SRC}/**/*.html`)
-      .pipe(concat('html'))
-      .pipe(gulp.dest('.'));
+      .pipe(concat('markup.js'))
+      .pipe(map((file, cb) => {
+         const wrapped = `const markup = \`${file.contents.toString()}\`;`;
+         file.contents = new Buffer(wrapped);
+         cb(null, file);
+      }))
+      .pipe(gulp.dest(JS_CORE_SRC));
 });
 
 gulp.task('js-login', () => {
@@ -100,7 +102,7 @@ gulp.task('deploy', () => {
 
 gulp.task('dev', ['default'], () => {
    gulp.watch(`${SASS_SRC}/**/*.scss`, ['styles']);
-   gulp.watch(`${SRC}/**/*.html`, ['copy-assets']);
+   gulp.watch(`${SRC}/**/*.html`, ['copy-assets', 'js-core']);
 //gulp.watch(`${TEMPLATES_SRC}/**/*.html`, ['create-admin-pages']);
    gulp.watch(`${JS_CORE_SRC}/**/*.js`, ['js-core']);
    gulp.watch(`${LOGIN_SRC}/**/*.js`, ['js-login']);
