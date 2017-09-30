@@ -1,0 +1,15 @@
+.aver-full-width-button {
+   width: 100%;
+   height: 50px;
+
+   border: none;
+   border-radius: 0 0 $default-border-radius $default-border-radius;
+   color: white;
+   padding: 0px;
+
+   font-size: 15px;
+}
+
+.aver-theme-button {
+   background-color: $theme-col;
+}

@@ -1,0 +1,14 @@
+$small-screen-threshold:  768px;
+$medium-screen-threshold:  400px;
+
+@mixin large-screen {
+   @media only screen and (min-width: $small-screen-threshold) {
+      @content;
+   }
+}
+
+@mixin medium-screen {
+   @media only screen and (min-width: $medium-screen-threshold) {
+      @content;
+   }
+}
