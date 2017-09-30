@@ -4,7 +4,6 @@ const gulp = require('gulp'),
    concat = require('gulp-concat'),
    cleanCSS = require('gulp-clean-css'),
    fs = require('fs-extra'),
-   browserSync = require('browser-sync').create(),
    autoprefixer = require('gulp-autoprefixer'),
    babel = require('gulp-babel');
 
@@ -87,16 +86,10 @@ gulp.task('deploy', () => {
 
 
 gulp.task('dev', ['default'], () => {
-   browserSync.init({
-      server: {
-         baseDir: "./dist"
-      }
-   });
    gulp.watch(`${SASS_SRC}/**/*.scss`, ['styles']);
    gulp.watch(`${SRC}/**/*.html`, ['copy-assets']);
 //gulp.watch(`${TEMPLATES_SRC}/**/*.html`, ['create-admin-pages']);
    gulp.watch(`${JS_CORE_SRC}/**/*.js`, ['js-core']);
    gulp.watch(`${LOGIN_SRC}/**/*.js`, ['js-login']);
    gulp.watch(`${JS_FIREBASE_SRC}/**/*.js`, ['js-firebase']);
-   gulp.watch(`${DIST}/**/*`, browserSync.reload)
 });
