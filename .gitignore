@@ -104,4 +104,7 @@ dist/
 
 # Sonarlint plugin
 
+html
+
+src/aver-core/js/markup\.js
 # End of https://www.gitignore.io/api/intellij,webstorm
