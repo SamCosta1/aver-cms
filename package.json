@@ -21,8 +21,7 @@
     "url": "https://github.com/SamCosta1/aver-cms/issues"
   },
   "homepage": "https://github.com/SamCosta1/aver-cms#readme",
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
     "jquery": "^3.2.1",
     "map-stream": "0.0.7",

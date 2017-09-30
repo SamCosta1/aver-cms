@@ -65,7 +65,7 @@ class AverLogin {
       this.$passwordErr.text('');
    }
 
-   static stringIsEmpty(str) { return typeof str === 'undefined' || str === null || str.length === 0; }
+   stringIsEmpty(str) { return typeof str === 'undefined' || str === null || str.length === 0; }
    emailErr() { this.$emailErr.text('Email invalid'); }
    passwordErr(msg = 'Password invalid') { this.$passwordErr.text(msg); }
 }
