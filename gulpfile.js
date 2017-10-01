@@ -27,8 +27,8 @@ const SRC = 'src',
 
    HTML_CORE_SRC = `${CORE_SRC}/html`,
 
-   JS_FIREBASE_SRC = `${SRC}/aver-firebase/`,
-   JS_FIREBASE_DEST = 'dist/aver-firebase/';
+   JS_FIREBASE_SRC = `${SRC}/aver-firebase`,
+   JS_FIREBASE_DEST = 'dist/aver-firebase';
 
 var deploy = false;
 

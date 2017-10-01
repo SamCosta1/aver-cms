@@ -5,3 +5,9 @@
       display: none;
    }
 }
+
+.aver-editable {
+   &:hover {
+      box-shadow: 0 0 24px $theme-col;
+   }
+}

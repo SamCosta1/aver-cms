@@ -9,7 +9,7 @@ class Auth {
       }
    }
 
-   isLoggedIn() {
+   isAuthorised() {
       const currentUser = firebase.auth().currentUser;
       return  currentUser !== undefined && currentUser !== null;
    }

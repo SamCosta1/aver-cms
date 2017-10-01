@@ -1,7 +1,17 @@
 class AverController {
    constructor(comms) {
       this.comms = comms;
-      this.uiManager = new UIManager();
-   }
 
+      if (!comms.isAuthorised) {
+         console.log('User not authorises');
+         return;
+      }
+      this.errorController = new ErrorController();
+      this.uiManager = new UIManager();
+      this.dataManager = new DataManager(comms, this.errorController);
+
+      this.dataManager.registerDataListener(this.uiManager);
+      this.dataManager.setPaths(this.uiManager.getPaths());
+      this.uiManager.setPathsHelper(this.dataManager);
+   }
 }

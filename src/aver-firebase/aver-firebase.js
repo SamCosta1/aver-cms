@@ -8,14 +8,16 @@ class AverFirebase {
 
    }
 
-   isLoggedIn() { return this.auth.isLoggedIn() }
+   isAuthorised() { return this.auth.isAuthorised() }
 
    getBackupsList() {
 
    }
 
    getFullData() {
-
+      return firebase.database().ref('site-data/').once('value').then((snapshot) => {
+         return snapshot.val();
+      });
    }
 
    getDataAtPath(path) {

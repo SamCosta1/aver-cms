@@ -1,6 +1,6 @@
 class AverLogin {
 
-   constructor(authModule, onLoggedInLink = '/admin'){
+   constructor(authModule, onLoggedInLink = '/'){
       this.authModule = authModule;
       this.onLoggedInLink = onLoggedInLink;
    }
