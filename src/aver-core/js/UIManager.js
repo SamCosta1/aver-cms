@@ -3,9 +3,12 @@ class UIManager {
    constructor() {
       this.initViews();
       this.initEditableListeners();
+
+      this.editChosenListeners = [];
    }
 
-   onDataChange(data) {
+   onDataChange(path, data) {
+      this.editables.get(path).text(data);
    }
 
    setPathsHelper(pathsHelper) {
@@ -19,7 +22,12 @@ class UIManager {
       }
    }
 
+   onEditStateChanged(editable) {
+      this.isEditable = editable;
+   }
+
    onDataInitialLoad() {
+      console.log('Loaded');
       this.editables.forEach(($editable, key) => {
          $editable.text(this.ph.getDataForPath(key));
       });
@@ -27,6 +35,7 @@ class UIManager {
 
    initViews() {
       this.$body = $('body');
+      this.$body.removeClass('aver-hidden');
       const $editables = $('.aver-editable');
 
       this.$body.append(markup);
@@ -43,8 +52,23 @@ class UIManager {
    }
 
    initEditableListeners() {
-      $('body').on('click', '.aver-editable', () => {
+      $('body').on('click', '.aver-editable', (e) => {
+         if (!this.isEditable) {
+            return;
+         }
+
+         for (const listener of this.editChosenListeners) {
+            listener.onEditChosen($(e.target).data('aver-path'));
+         }
 
       });
+   }
+
+   setEditAreaChosenListener(listener) {
+      if (typeof listener.onEditChosen !== 'function') {
+         throw 'Listener must have an onEditChosen method';
+      }
+
+      this.editChosenListeners.push(listener);
    }
 }

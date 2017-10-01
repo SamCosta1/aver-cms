@@ -13,3 +13,10 @@
 .aver-theme-button {
    background-color: $theme-col;
 }
+
+.aver-toggle {
+   &.aver-toggle-active {
+      color: $theme-col;
+   }
+
+}
