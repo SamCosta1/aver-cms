@@ -13,6 +13,5 @@ class AverController {
       this.dataManager.registerDataListener(this.uiManager);
       this.dataManager.setPaths(this.uiManager.getPaths());
       this.uiManager.setPathsHelper(this.dataManager);
-
    }
 }
