@@ -5,17 +5,41 @@ class UIManager {
       this.initEditableListeners();
    }
 
+   onDataChange(data) {
+   }
+
+   setPathsHelper(pathsHelper) {
+      this.ph = pathsHelper;
+   }
+
+   getPaths() {
+      return {
+         'pagePath': this.pagePath = this.$body.data('aver-basepath'),
+         'partialsPath': this.partialsPath = this.$body.data('aver-partials')
+      }
+   }
+
+   onDataInitialLoad() {
+      this.editables.forEach(($editable, key) => {
+         $editable.text(this.ph.getDataForPath(key));
+      });
+   }
+
    initViews() {
-      const $body = $('body');
+      this.$body = $('body');
+      const $editables = $('.aver-editable');
 
-      $body.append(markup);
+      this.$body.append(markup);
 
-      this.pagePath = $body.data('aver-basepath');
-      this.partialsPath = $body.data('aver-partials');
+      this.editables = new Map();
 
+      $editables.each((key, editable) => {
+         const path = $(editable).data('aver-path');
 
-      console.log('root: ', this.partialsPath, this.pagePath);
+         if (typeof path === 'undefined' || path === null) { throw 'Error each editable must have a data-aver-path specified'; }
+         this.editables.set(path, $(editable));
 
+      });
    }
 
    initEditableListeners() {

@@ -6,19 +6,13 @@ class AverController {
          console.log('User not authorises');
          return;
       }
-      this.uiManager = new UIManager();
       this.errorController = new ErrorController();
+      this.uiManager = new UIManager();
+      this.dataManager = new DataManager(comms, this.errorController);
 
-      this.getData();
+      this.dataManager.registerDataListener(this.uiManager);
+      this.dataManager.setPaths(this.uiManager.getPaths());
+      this.uiManager.setPathsHelper(this.dataManager);
 
    }
-
-   getData() {
-      this.comms.getFullData().then((data) => {
-         this.data = data;
-      }).catch(this.errorController.onError);
-   }
-
-
-
 }
