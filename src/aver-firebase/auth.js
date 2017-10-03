@@ -9,9 +9,16 @@ class Auth {
       }
    }
 
-   isAuthorised() {
-      const currentUser = firebase.auth().currentUser;
-      return  currentUser !== undefined && currentUser !== null;
+   getAuthorisationState() {
+      return new Promise((resolve, reject) => {
+         firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+               resolve(true);
+            } else {
+               resolve(false);
+            }
+         });
+      });
    }
 
    signInWithUserNameAndPassword(email, password) {

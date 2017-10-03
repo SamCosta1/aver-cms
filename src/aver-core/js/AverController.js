@@ -2,10 +2,16 @@ class AverController {
    constructor(comms) {
       this.comms = comms;
 
-      if (!comms.isAuthorised) {
-         console.log('User not authorises');
-         return;
-      }
+      comms.getAuthorisationState().then((authorised) => {
+         if (authorised) {
+            this.setupAver(comms);
+         } else {
+            console.log('User not authorised');
+         }
+      })
+   }
+
+   setupAver(comms) {
       this.errorController = new ErrorController();
       this.uiManager = new UIManager();
       this.dataManager = new DataManager(comms, this.errorController);

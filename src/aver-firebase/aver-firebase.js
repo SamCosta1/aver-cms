@@ -8,7 +8,7 @@ class AverFirebase {
 
    }
 
-   isAuthorised() { return this.auth.isAuthorised() }
+   getAuthorisationState() { return this.auth.getAuthorisationState() }
 
    getBackupsList() {
 
