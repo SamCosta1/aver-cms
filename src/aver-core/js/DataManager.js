@@ -69,4 +69,8 @@ class DataManager {
       parent[base] = data;
       this.updateListeners(path, data);
    }
+
+   saveDataAtPath(path) {
+      return this.comms.saveDataAtPath(this.getDataForPath(path), `${this.pagePath}.${path}`);
+   }
 }

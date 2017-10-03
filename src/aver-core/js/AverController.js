@@ -16,6 +16,6 @@ class AverController {
 
       this.header = new Header();
       this.header.registerEditChangeListener(this.uiManager);
-      this.uiManager.setEditAreaChosenListener(new EditBar(this.dataManager));
+      this.uiManager.setEditAreaChosenListener(new EditBar(this.dataManager, this.errorController));
    }
 }

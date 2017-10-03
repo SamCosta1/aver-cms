@@ -14,6 +14,14 @@
    background-color: $theme-col;
 }
 
+.aver-button {
+   background-color: $theme-col;
+   color: white;
+   border-radius: $default-border-radius;
+   padding: 10px;
+   cursor: pointer;
+}
+
 .aver-toggle {
    &.aver-toggle-active {
       color: $theme-col;

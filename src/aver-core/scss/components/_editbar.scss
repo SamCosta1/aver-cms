@@ -1,5 +1,38 @@
 .aver-editbar {
+   $height: 200px;
+
    position: fixed;
    bottom: 0;
    z-index: 200;
+
+   .aver-edit-container {
+      display: flex;
+      align-items: center;
+   }
+   width: 100vw;
+   height: $height;
+   background-color: $lighten-2;
+
+   animation: fadeIn 0.2s;
+
+   &.collapsed {
+      animation: fadeOut 0.2s;
+      display: none;
+
+   }
+
+   #aver-editbar-textarea {
+      height: $height * 0.8;
+      width: 75vw;
+   }
+}
+
+@keyframes fadeIn {
+   from { opacity: 0; }
+   to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+   from { opacity: 1; }
+   to { opacity: 0; }
 }

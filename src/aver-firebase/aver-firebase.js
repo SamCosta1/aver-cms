@@ -20,8 +20,12 @@ class AverFirebase {
       });
    }
 
-   getDataAtPath(path) {
-
+   _pathTransform(path) {
+      return path.replace(/\./g, '/');
+   }
+   saveDataAtPath(data, path) {
+      const firebasePath = this._pathTransform(path);
+      return firebase.database().ref(`site-data/${firebasePath}`).set(data)
    }
 
    getBackupFileAtIndex(index) {
