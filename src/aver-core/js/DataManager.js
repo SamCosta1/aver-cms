@@ -3,7 +3,6 @@ class DataManager {
       this.comms = comms;
       this.errorController = errorController;
       this.listeners = [];
-
       this.getData();
    }
 
@@ -26,9 +25,9 @@ class DataManager {
       this.listeners.push(listener);
    }
 
-   updateListeners() {
+   updateListeners(path, data) {
       for (const listener of this.listeners) {
-         listener.onDataChange(this.data)
+         listener.onDataChange(path, data)
       }
    }
 
@@ -59,5 +58,19 @@ class DataManager {
 
          this.notifyListenersLoaded();
       }).catch(this.errorController.onError);
+   }
+
+   updateDataAtPath(data, path) {
+      let parentPath = path.split('.');
+      const base = parentPath.pop();
+      parentPath = parentPath.join('.');
+
+      const parent = this.getDataForPath(parentPath);
+      parent[base] = data;
+      this.updateListeners(path, data);
+   }
+
+   saveDataAtPath(path) {
+      return this.comms.saveDataAtPath(this.getDataForPath(path), `${this.pagePath}.${path}`);
    }
 }

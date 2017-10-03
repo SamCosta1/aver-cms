@@ -1,4 +1,10 @@
 @import 'components/presets';
+@import 'components/buttons';
+@import 'components/forms';
+@import 'components/media';
+@import 'components/header';
+@import 'components/editbar';
+@import 'components/loader';
 
 .aver-hidden {
    .aver {
@@ -6,8 +12,12 @@
    }
 }
 
-.aver-editable {
-   &:hover {
-      box-shadow: 0 0 24px $theme-col;
+.aver-editing {
+
+   .aver-editable {
+      &:hover {
+         box-shadow: 0 0 24px $theme-col;
+      }
    }
+
 }
