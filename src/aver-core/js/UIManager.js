@@ -8,7 +8,7 @@ class UIManager {
    }
 
    onDataChange(path, data) {
-      this.editables.get(path).text(data);
+      this._updateEditables(this.editables.get(path), data);
    }
 
    setPathsHelper(pathsHelper) {
@@ -28,11 +28,18 @@ class UIManager {
 
    onDataInitialLoad() {
       console.log('Loaded');
-      this.editables.forEach(($editable, key) => {
-         $editable.text(this.ph.getDataForPath(key));
+      this.editables.forEach((editableList, key) => {
+         const data = this.ph.getDataForPath(key)
+         this._updateEditables(editableList, data);
       });
    }
 
+   _updateEditables(editableList, data) {
+      for (const $editable of editableList) {
+         $editable.text(data);
+      }
+
+   }
    initViews() {
       this.$body = $('body');
       this.$body.removeClass('aver-hidden');
@@ -46,7 +53,13 @@ class UIManager {
          const path = $(editable).data('aver-path');
 
          if (typeof path === 'undefined' || path === null) { throw 'Error each editable must have a data-aver-path specified'; }
-         this.editables.set(path, $(editable));
+
+         const editableList = this.editables.get(path);
+         if (editableList === undefined) {
+            this.editables.set(path, [$(editable)]);
+         } else {
+            editableList.push($(editable));
+         }
 
       });
    }
