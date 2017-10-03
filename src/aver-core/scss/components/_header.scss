@@ -5,5 +5,46 @@
    z-index: 200;
 
    display: flex;
+   justify-content: space-between;
+   align-items: center;
+
+   width: 100vw;
+   height: 50px;
+
+   background-color: $lighten-2;
+   border-radius: 0 0 $default-border-radius;
+   color: white;
+
+   padding: 0px 5px;
+
+   transition: width 0.2s;
+
+   @include medium-screen {
+      width: 75vw;
+   }
+
+   &.collapsed {
+      width: 100px;
+
+      .aver-controls-container {
+         display: none;
+      }
+   }
+
+   .aver-left-container {
+      display: flex;
+
+      .aver-title {
+         border-right: solid white 1px;
+         padding-right: 10px;
+         margin-right: 10px;
+      }
+
+   }
+
+   #aver-header-collapse:hover {
+      color: $theme-col;
+      cursor: pointer;
+   }
 
 }

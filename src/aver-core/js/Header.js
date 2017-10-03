@@ -2,13 +2,15 @@ class Header {
    constructor() {
       this.initViews();
       this.setupListeners();
-
+      this.headerExpanded = true;
       this.listeners = [];
    }
 
    initViews() {
       this.$body = $('body');
+      this.$container = $('.aver-header');
       this.$editToggle = $('#aver-editable-toggle');
+      this.$collapseToggle = $('#aver-header-collapse');
    }
 
    setupListeners() {
@@ -20,6 +22,21 @@ class Header {
 
          this.$editToggle.text(editable ? 'Editing On' : 'Editing Off');
          this.notifyListeners(editable);
+      });
+
+      this.$collapseToggle.click(() => {
+         this.headerExpanded = !this.headerExpanded;
+
+         if (this.headerExpanded) {
+            this.$container.removeClass('collapsed');
+            this.$collapseToggle.addClass('fa-angle-double-left');
+            this.$collapseToggle.removeClass('fa-angle-double-right');
+         } else {
+            this.$container.addClass('collapsed');
+            this.$collapseToggle.removeClass('fa-angle-double-left');
+            this.$collapseToggle.addClass('fa-angle-double-right');
+         }
+
       });
    }
 

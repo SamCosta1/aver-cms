@@ -19,4 +19,9 @@
       color: $theme-col;
    }
 
+   &:hover {
+      color: $lighten-1;
+      cursor: pointer;
+   }
+
 }

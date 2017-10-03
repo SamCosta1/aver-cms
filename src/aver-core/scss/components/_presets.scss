@@ -6,6 +6,10 @@ $font-large: 30px;
 
 // Colours
 $theme-col: rgb(0, 43, 99);;
+
+$lighten-1: lighten($theme-col, 10%);
+$lighten-2: lighten($theme-col, 20%);
+
 $error: red;
 
 $default-border-radius: 5px;

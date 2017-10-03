@@ -23,8 +23,6 @@
   "homepage": "https://github.com/SamCosta1/aver-cms#readme",
   "devDependencies": {},
   "dependencies": {
-    "jquery": "^3.2.1",
-    "map-stream": "0.0.7",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.0",
     "babel-preset-es2015": "^6.24.1",
@@ -35,6 +33,8 @@
     "gulp-clean-css": "^3.9.0",
     "gulp-concat": "^2.6.1",
     "gulp-if": "^2.0.2",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "^3.1.0",
+    "jquery": "^3.2.1",
+    "map-stream": "0.0.7"
   }
 }
